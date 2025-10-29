@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://cai5hnmj02ncw"]
+
+[ext_resource type="Texture2D" uid="uid://ch554ih4hn5t" path="res://Common/Luz.png" id="1_ivisf"]
+[ext_resource type="Texture2D" uid="uid://0ngokp0itfpt" path="res://Stages/Tilesets/tilesvariados.png" id="2_ert6d"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_orswm"]
+size = Vector2(34, 27)
+
+[node name="Grave" type="Area2D"]
+
+[node name="PointLight2D2" type="PointLight2D" parent="."]
+scale = Vector2(0.335, 0.335)
+energy = 1.2
+range_z_max = -1
+shadow_enabled = true
+texture = ExtResource("1_ivisf")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_ert6d")
+region_enabled = true
+region_rect = Rect2(32, 16, 16, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -5.5)
+shape = SubResource("RectangleShape2D_orswm")
