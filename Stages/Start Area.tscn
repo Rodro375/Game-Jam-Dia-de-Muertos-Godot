@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=4 uid="uid://k0ngofl8mnb8"]
+[gd_scene load_steps=11 format=4 uid="uid://k0ngofl8mnb8"]
 
 [ext_resource type="Texture2D" uid="uid://co7abbyfd2hx7" path="res://ThirdParty/main_lev_build.png" id="1_orswm"]
 [ext_resource type="PackedScene" uid="uid://hvuttdch4mdh" path="res://Entities/Player/player.tscn" id="2_i8gsi"]
+[ext_resource type="AudioStream" uid="uid://dih08840bkcpb" path="res://Stages/Pantheons/Audio/2) vacio panetonico.mp3" id="3_sblr0"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_sblr0"]
 polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
@@ -12,7 +13,7 @@ polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_henpj"]
 polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_i8gsi"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sblr0"]
 texture = ExtResource("1_orswm")
 91:2/0 = 0
 2:3/0 = 0
@@ -1849,7 +1850,7 @@ texture = ExtResource("1_orswm")
 [sub_resource type="TileSet" id="TileSet_sblr0"]
 occlusion_layer_0/light_mask = 1
 physics_layer_0/collision_layer = 1
-sources/0 = SubResource("TileSetAtlasSource_i8gsi")
+sources/0 = SubResource("TileSetAtlasSource_sblr0")
 
 [sub_resource type="Gradient" id="Gradient_sblr0"]
 offsets = PackedFloat32Array(0.253247, 0.688312, 0.805195)
@@ -1889,4 +1890,9 @@ texture = SubResource("GradientTexture2D_l514h")
 texture_scale = 0.1
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.862745, 0.862745, 0.862745, 1)
+color = Color(0.666569, 0.666569, 0.666569, 1)
+
+[node name="SceneMusic" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_sblr0")
+volume_db = 18.48
+autoplay = true

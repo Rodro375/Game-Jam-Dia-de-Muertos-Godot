@@ -1,8 +1,11 @@
 extends PlayerStateGravityBase
 
 func start():
-	player.animations.wall_slide
-
+	player.play_animation(player.animations.wall_slide)
+	player.movement_stats.can_dash = true
+	player.movement_stats.can_double_jump = true
+	$"../../Audio/WallGrab".play()
+	
 func on_physics_process(delta):
 	input_direction_active()
 	

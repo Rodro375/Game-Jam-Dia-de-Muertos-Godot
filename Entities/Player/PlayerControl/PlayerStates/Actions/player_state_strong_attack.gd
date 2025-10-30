@@ -1,11 +1,8 @@
-extends Node
+extends PlayerStateBase
 
+func start():
+	player.play_animation(player.animations.strong_attack)
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+func on_physics_process(delta):
+	if not player.animation_player.is_playing():
+		state_machine.change_state_to(player.states.idle)

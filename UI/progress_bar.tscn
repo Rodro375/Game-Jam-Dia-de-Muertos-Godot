@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqvadxou3u4py"]
+
+[ext_resource type="Script" uid="uid://cjctojdsahil4" path="res://Entities/Player/HUD/player_health.gd" id="1_ng8tm"]
+
+[node name="HUD" type="CanvasLayer"]
+
+[node name="ProgressBar" type="TextureProgressBar" parent="."]
+offset_right = 4.0
+offset_bottom = 27.0
+script = ExtResource("1_ng8tm")

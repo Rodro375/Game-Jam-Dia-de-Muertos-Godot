@@ -1,7 +1,11 @@
 extends PlayerStateGravityBase
 
 func start():
-	player.play_animation(player.animations.run)	
+	player.play_animation(player.animations.run)
+	$"../../Audio/Run".play()
+
+func end():
+	$"../../Audio/Run".stop()
 
 func on_physics_process(delta):
 	input_direction_active()
@@ -17,3 +21,11 @@ func on_physics_process(delta):
 func on_input(event):
 	if Input.is_action_just_pressed("Jump"):
 		state_machine.change_state_to(player.states.jump)
+	if Input.is_action_just_pressed("Dash") and player.movement_stats.can_dash == true:
+		state_machine.change_state_to(player.states.dash)
+	if Input.is_action_just_pressed("Attack"):
+		state_machine.change_state_to(player.states.attack)
+	if Input.is_action_just_pressed("Charge"):
+		state_machine.change_state_to(player.states.charge)
+	if Input.is_action_just_pressed("Parry"):
+		state_machine.change_state_to(player.states.parry)

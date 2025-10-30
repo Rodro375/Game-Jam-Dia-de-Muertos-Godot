@@ -1,11 +1,16 @@
 class_name Player
 extends CharacterBody2D
 
+signal health_changed
+
 @export var movement_stats:CharacterMovementStats
 
 @onready var sprite:Sprite2D = $Sprite
 @onready var wall_raycast:RayCast2D = $Sprite/RayCast
 @onready var animation_player:AnimationPlayer = $AnimationPlayer
+
+@export var max_health:int = 100
+@onready var current_health:int = max_health
 
 var states:PlayerStateNames = PlayerStateNames.new()
 var animations:PlayerAnimations = PlayerAnimations.new()

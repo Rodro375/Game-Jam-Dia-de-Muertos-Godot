@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dih08840bkcpb"
+path="res://.godot/imported/2) vacio panetonico.mp3-8c0c4f243972af4f96d8cb1d98f18d16.mp3str"
+
+[deps]
+
+source_file="res://Stages/Pantheons/Audio/2) vacio panetonico.mp3"
+dest_files=["res://.godot/imported/2) vacio panetonico.mp3-8c0c4f243972af4f96d8cb1d98f18d16.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

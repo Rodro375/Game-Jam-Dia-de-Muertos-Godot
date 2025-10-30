@@ -23,3 +23,7 @@ func is_on_wall_raycast():
 				return false
 		else:
 			false
+
+func choose_random_audio(parent:Node2D):
+	var audio:AudioStreamPlayer2D = parent.get_children().pick_random()
+	audio.play()
