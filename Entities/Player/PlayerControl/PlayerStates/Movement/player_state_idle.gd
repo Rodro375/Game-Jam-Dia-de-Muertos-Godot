@@ -24,11 +24,19 @@ func on_input(event):
 		state_machine.change_state_to(player.states.jump)
 	if Input.is_action_just_pressed("Dash") and player.movement_stats.can_dash == true:
 		state_machine.change_state_to(player.states.dash)
-	if Input.is_action_just_pressed("Attack"):
-		state_machine.change_state_to(player.states.attack)
+	if Input.is_action_pressed("Up"):
+		print("nose")
 	if Input.is_action_just_pressed("Charge"):
 		state_machine.change_state_to(player.states.charge)
 	if Input.is_action_just_pressed("Parry"):
 		state_machine.change_state_to(player.states.parry)
 	if Input.is_action_just_pressed("Strong Attack"):
 		state_machine.change_state_to(player.states.strong_attack)
+	if player.can_attack == true:
+		if Input.is_action_pressed("Up") and Input.is_action_just_pressed("Attack"):
+			state_machine.change_state_to(player.states.up_attack)
+		elif Input.is_action_just_pressed("Attack"):
+			state_machine.change_state_to(player.states.side_attack)
+
+func _on_player_health_changed():
+	state_machine.change_state_to(player.states.damage)

@@ -1,10 +1,7 @@
-extends PlayerStateBase
+extends CanvasLayer
 
-@onready var progress_bar:TextureProgressBar = $"."
+@onready var progress_bar:TextureProgressBar = $ProgressBar
+@onready var player:Player = self.owner
 
-func ready():
-	player.health_changed.connect(update())
-	update()
-
-func update():
+func _on_player_health_changed():
 	progress_bar.value = player.current_health * 100 / player.max_health

@@ -1,10 +1,32 @@
-[gd_scene load_steps=7 format=3 uid="uid://bvt7spjg8ldk6"]
+[gd_scene load_steps=11 format=3 uid="uid://bvt7spjg8ldk6"]
 
+[ext_resource type="Script" uid="uid://c83c3gytcdst8" path="res://Entities/Enemies/Condor/condor.gd" id="1_pb5a5"]
 [ext_resource type="Texture2D" uid="uid://dktmjoip4b1f3" path="res://Entities/Enemies/Condor/Arte/condor.png" id="1_t2na2"]
 [ext_resource type="PackedScene" uid="uid://boue2bx8dcf63" path="res://Common/StateMachine/state_machine.tscn" id="2_3a26m"]
+[ext_resource type="Script" uid="uid://2fr75wpnq07v" path="res://Entities/Enemies/Condor/LlamaStates/Actions/condor_state_attack.gd" id="3_sowc6"]
+[ext_resource type="Script" uid="uid://bq7tphkh7o28u" path="res://Entities/Enemies/Condor/LlamaStates/Movement/condor_state_fly.gd" id="4_pb5a5"]
+
+[sub_resource type="Animation" id="Animation_pb5a5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_t2na2"]
+resource_name = "attack"
+step = 0.1
 
 [sub_resource type="Animation" id="Animation_sowc6"]
-resource_name = "idle"
+resource_name = "fly"
 length = 0.2
 loop_mode = 2
 step = 0.1
@@ -33,31 +55,18 @@ tracks/1/keys = {
 "values": [0, 1, 2]
 }
 
-[sub_resource type="Animation" id="Animation_pb5a5"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_x8kf0"]
 _data = {
 &"RESET": SubResource("Animation_pb5a5"),
-&"idle": SubResource("Animation_sowc6")
+&"attack": SubResource("Animation_t2na2"),
+&"fly": SubResource("Animation_sowc6")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0yi2h"]
 size = Vector2(38, 26)
 
 [node name="Condor" type="CharacterBody2D"]
+script = ExtResource("1_pb5a5")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_t2na2")
@@ -72,4 +81,11 @@ libraries = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_0yi2h")
 
-[node name="StateMachine" parent="." instance=ExtResource("2_3a26m")]
+[node name="StateMachine" parent="." node_paths=PackedStringArray("default_state") instance=ExtResource("2_3a26m")]
+default_state = NodePath("CondorStateFly")
+
+[node name="CondorStateAttack" type="Node" parent="StateMachine"]
+script = ExtResource("3_sowc6")
+
+[node name="CondorStateFly" type="Node" parent="StateMachine"]
+script = ExtResource("4_pb5a5")

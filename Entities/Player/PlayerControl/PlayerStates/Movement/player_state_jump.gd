@@ -19,6 +19,7 @@ func on_physics_process(delta):
 	handle_gravity(delta)
 	player.move_and_slide()
 
+@warning_ignore("unused_parameter")
 func on_input(event):
 	if Input.is_action_just_pressed("Dash") and player.movement_stats.can_dash == true:
 		state_machine.change_state_to(player.states.dash)
@@ -26,5 +27,10 @@ func on_input(event):
 		player.velocity.y = player.movement_stats.jump_speed + 20
 		player.movement_stats.can_double_jump = false
 		state_machine.change_state_to(player.states.jump)
-	if Input.is_action_just_pressed("Attack"):
-		state_machine.change_state_to(player.states.attack)
+	if player.can_attack == true:
+		if Input.is_action_pressed("Up") and Input.is_action_just_pressed("Attack"):
+			state_machine.change_state_to(player.states.up_attack)
+		elif Input.is_action_pressed("Down") and Input.is_action_just_pressed("Attack"):
+			state_machine.change_state_to(player.states.down_attack)
+		elif Input.is_action_just_pressed("Attack"):
+			state_machine.change_state_to(player.states.side_attack)
