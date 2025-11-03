@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://di18otlhiinf3"]
+[gd_scene load_steps=14 format=3 uid="uid://di18otlhiinf3"]
 
 [ext_resource type="Script" uid="uid://bh87v4h7ey53s" path="res://Entities/Enemies/Llama/llama.gd" id="1_ocpms"]
 [ext_resource type="Texture2D" uid="uid://cq2iuw3ndstup" path="res://Entities/Enemies/Llama/Arte/llama_espada.png" id="2_qxcvm"]
@@ -6,6 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://boue2bx8dcf63" path="res://Common/StateMachine/state_machine.tscn" id="4_k6xpy"]
 [ext_resource type="Script" uid="uid://blum5u2riaghc" path="res://Entities/Enemies/Llama/LlamaStates/Movement/llama_state_run.gd" id="5_nayec"]
 [ext_resource type="Script" uid="uid://c06re8bqtkxdq" path="res://Entities/Enemies/Llama/LlamaStates/Actions/llama_state_attack.gd" id="6_4gmhc"]
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_ocpms"]
+points = PackedVector2Array(-9, -15, -9, 23, 11, 23, 11, -3, -3, -15)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_auqeh"]
 size = Vector2(142, 105)
@@ -175,8 +178,8 @@ hframes = 5
 
 [node name="HurtBox" type="Area2D" parent="Sprite2D" groups=["enemy"]]
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Sprite2D/HurtBox"]
-polygon = PackedVector2Array(-9, -15, -9, 23, 11, 23, 11, -3, -3, -3, -3, -15)
+[node name="CollisionPolygon2D" type="CollisionShape2D" parent="Sprite2D/HurtBox"]
+shape = SubResource("ConvexPolygonShape2D_ocpms")
 
 [node name="DetectionArea" type="Area2D" parent="Sprite2D"]
 

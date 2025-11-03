@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://cqvadxou3u4py"]
+[gd_scene load_steps=8 format=3 uid="uid://cqvadxou3u4py"]
 
 [ext_resource type="Script" uid="uid://cjctojdsahil4" path="res://Entities/Player/HUD/player_health.gd" id="1_ng8tm"]
 [ext_resource type="Texture2D" uid="uid://2g236ty5xwga" path="res://Entities/Player/HUD/Art/vidajugador.png" id="1_vmj0m"]
 [ext_resource type="Texture2D" uid="uid://wdn681k3mc2u" path="res://Entities/Player/HUD/Art/HealthBar1.png" id="2_ehtfw"]
 [ext_resource type="Texture2D" uid="uid://yrqrmisxbqdv" path="res://Entities/Player/HUD/Art/HealthBar2.png" id="3_bqhug"]
 [ext_resource type="Texture2D" uid="uid://qal0s5b4si0w" path="res://Entities/Player/HUD/Art/personajelimpio (1).png" id="5_bqhug"]
+[ext_resource type="Texture2D" uid="uid://cvceomnr6g128" path="res://Entities/Player/HUD/Art/Parry Charges1.png" id="5_nvtjl"]
+[ext_resource type="Texture2D" uid="uid://dh0cnxish132u" path="res://Entities/Player/HUD/Art/Parry Charges2.png" id="6_5si6g"]
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_ng8tm")
@@ -30,6 +32,21 @@ size_flags_vertical = 0
 value = 100.0
 texture_under = ExtResource("2_ehtfw")
 texture_progress = ExtResource("3_bqhug")
+metadata/_edit_use_anchors_ = true
+
+[node name="ParryCharges" type="TextureProgressBar" parent="."]
+anchors_preset = -1
+offset_left = 49.0
+offset_top = 34.0
+offset_right = 93.0
+offset_bottom = 38.0
+scale = Vector2(2, 2)
+pivot_offset = Vector2(-29, -13)
+size_flags_horizontal = 0
+size_flags_vertical = 0
+value = 100.0
+texture_under = ExtResource("5_nvtjl")
+texture_progress = ExtResource("6_5si6g")
 metadata/_edit_use_anchors_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

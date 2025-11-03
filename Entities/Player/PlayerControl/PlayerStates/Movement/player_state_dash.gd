@@ -6,6 +6,15 @@ func start():
 	player.movement_stats.can_dash = false
 	choose_random_audio($"../../Audio/Dash")
 	%DashTimer.start()
+	$"../..".collision_layer = 2
+	$"../..".collision_mask = 2
+	$"../../Sprite/HurtBox/HurtBoxCollision".disabled = true
+	
+func end():
+	$"../..".collision_layer = 1
+	$"../..".collision_mask = 1
+	$"../../Sprite/HurtBox/HurtBoxCollision".disabled = false
+	
 
 func on_physics_process(delta):
 	input_direction_active()

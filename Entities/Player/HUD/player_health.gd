@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 @onready var progress_bar:TextureProgressBar = $ProgressBar
+@onready var parry_charges:TextureProgressBar = $ParryCharges
 @onready var player:Player = self.owner
 
 func _on_player_health_changed():

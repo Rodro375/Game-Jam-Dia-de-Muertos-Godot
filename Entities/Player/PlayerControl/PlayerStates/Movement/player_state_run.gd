@@ -28,7 +28,11 @@ func on_input(event):
 		state_machine.change_state_to(player.states.dash)
 	if Input.is_action_just_pressed("Charge"):
 		state_machine.change_state_to(player.states.charge)
-	if Input.is_action_just_pressed("Parry"):
+	if Input.is_action_just_pressed("Strong Attack") and $"../../HUD".parry_charges.value >= 75:
+		$"../../HUD".parry_charges.value -= 75
+		state_machine.change_state_to(player.states.strong_attack)
+	if Input.is_action_just_pressed("Parry") and $"../../HUD".parry_charges.value >= 25:
+		$"../../HUD".parry_charges.value -= 25
 		state_machine.change_state_to(player.states.parry)
 	if player.can_attack == true:
 		if Input.is_action_pressed("Up") and Input.is_action_just_pressed("Attack"):

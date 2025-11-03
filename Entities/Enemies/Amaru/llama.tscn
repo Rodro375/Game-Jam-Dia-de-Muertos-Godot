@@ -1,0 +1,233 @@
+[gd_scene load_steps=16 format=3 uid="uid://c30rotof5x2ur"]
+
+[ext_resource type="Script" uid="uid://dih0dxliyq25n" path="res://Entities/Enemies/Amaru/llama.gd" id="1_csfcf"]
+[ext_resource type="Texture2D" uid="uid://svbekh654fo5" path="res://Entities/Enemies/Amaru/Arte/llama_espada.png" id="2_jo6s3"]
+[ext_resource type="Texture2D" uid="uid://cmhm3ebljtnik" path="res://Entities/Enemies/Amaru/Arte/llama.png" id="3_ucx22"]
+[ext_resource type="PackedScene" uid="uid://boue2bx8dcf63" path="res://Common/StateMachine/state_machine.tscn" id="4_k8bpl"]
+[ext_resource type="Script" uid="uid://cla73pnnoc4in" path="res://Entities/Enemies/Amaru/LlamaStates/Movement/llama_state_run.gd" id="5_eyohb"]
+[ext_resource type="Script" uid="uid://dao1ls16rju2j" path="res://Entities/Enemies/Amaru/LlamaStates/Actions/llama_state_attack.gd" id="6_m3rnk"]
+[ext_resource type="PackedScene" uid="uid://crqecpo45q3hg" path="res://Common/EnemyHealthBar/enemy_health_bar.tscn" id="7_6ohms"]
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_3ip0k"]
+points = PackedVector2Array(-9, -15, -9, 23, 11, 23, 11, -3, -3, -15)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_auqeh"]
+size = Vector2(142, 105)
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_sjkn7"]
+points = PackedVector2Array(1, 17, -18, 1, -23, -29, -18, -49, 47, -37, 46, -23)
+
+[sub_resource type="Animation" id="Animation_d1jpu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D/Attack:monitoring")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D/Attack:monitorable")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_3ip0k"]
+resource_name = "attack"
+length = 0.405
+step = 0.005
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:hframes")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_jo6s3")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.24999999, 0.29000002, 0.33, 0.36999997),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D/Attack:monitoring")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.24999999, 0.405),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D/Attack:monitorable")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.24999999, 0.405),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_lphbd"]
+resource_name = "run"
+length = 0.3
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_ucx22")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_m4ixc"]
+_data = {
+&"RESET": SubResource("Animation_d1jpu"),
+&"attack": SubResource("Animation_3ip0k"),
+&"run": SubResource("Animation_lphbd")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_my342"]
+size = Vector2(18, 28)
+
+[node name="Llama" type="CharacterBody2D" groups=["enemies"]]
+script = ExtResource("1_csfcf")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_jo6s3")
+hframes = 5
+
+[node name="HurtBox" type="Area2D" parent="Sprite2D" groups=["enemy_hurtbox"]]
+
+[node name="CollisionPolygon2D" type="CollisionShape2D" parent="Sprite2D/HurtBox"]
+shape = SubResource("ConvexPolygonShape2D_3ip0k")
+
+[node name="DetectionArea" type="Area2D" parent="Sprite2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/DetectionArea"]
+position = Vector2(0, -22.5)
+shape = SubResource("RectangleShape2D_auqeh")
+debug_color = Color(1, 1, 1, 0.41960785)
+
+[node name="Attack" type="Area2D" parent="Sprite2D" groups=["enemy_attack"]]
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/Attack"]
+position = Vector2(-57, 19)
+shape = SubResource("ConvexPolygonShape2D_sjkn7")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_m4ixc")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 10)
+shape = SubResource("RectangleShape2D_my342")
+
+[node name="StateMachine" parent="." node_paths=PackedStringArray("default_state") instance=ExtResource("4_k8bpl")]
+default_state = NodePath("LlamaStateRun")
+
+[node name="LlamaStateRun" type="Node" parent="StateMachine"]
+script = ExtResource("5_eyohb")
+
+[node name="LlamaStateAttack" type="Node" parent="StateMachine"]
+script = ExtResource("6_m3rnk")
+
+[node name="Timers" type="Node" parent="."]
+
+[node name="AfterAttack" type="Timer" parent="Timers"]
+wait_time = 2.0
+
+[node name="EnemyHealthBar" parent="." instance=ExtResource("7_6ohms")]
+position = Vector2(-24, -35)
+
+[connection signal="area_entered" from="Sprite2D/HurtBox" to="." method="_on_hurt_box_area_entered"]
+[connection signal="area_entered" from="Sprite2D/DetectionArea" to="." method="_on_detection_area_area_entered"]
+[connection signal="area_entered" from="Sprite2D/DetectionArea" to="StateMachine/LlamaStateRun" method="_on_detection_area_area_entered"]
+[connection signal="area_exited" from="Sprite2D/DetectionArea" to="." method="_on_detection_area_area_exited"]
+[connection signal="timeout" from="Timers/AfterAttack" to="." method="_on_after_attack_timeout"]

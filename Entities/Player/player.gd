@@ -36,24 +36,39 @@ func play_animation(animation_name:String):
 	animation_player.play(animation_name)
 	
 func _on_hurt_box_area_entered(area:Node2D):
-	if area.is_in_group("enemy") and invul_after_damage == false:
+	if area.is_in_group("enemy_attack") and invul_after_damage == false:
 		$"../Camera2D".screen_shake(8,0.3)
-		$Timers/InvulAfterDamage.start()
-		invul_after_damage = true
-		current_health -= 25
-		health_changed.emit()
+		if $StateMachine.current_state.name == "PlayerStateParry":
+			animation_player.play("parry")
+			$Audio/Damage.play()
+			if !area.is_in_group("projectile"):
+				area.owner.current_health -= 100
+			else:
+				area.queue_free()
+		elif area.is_in_group("projectile"):
+			$Timers/InvulAfterDamage.start()
+			invul_after_damage = true
+			current_health -= area.damage
+			health_changed.emit()
+		else:
+			$Timers/InvulAfterDamage.start()
+			invul_after_damage = true
+			current_health -= area.owner.damage
+			health_changed.emit()
 
 func _on_invul_after_damage_timeout():
 	invul_after_damage = false
 
 func _on_attack_area_entered(area:Node2D):
-	if area.is_in_group("enemy"):
+	if area.is_in_group("enemy_hurtbox"):
 		$"../Camera2D".screen_shake(7.5,0.15)
-		area.owner.velocity.x = sprite.scale.x - 50
 		$Audio/Damage.play()
 		area.owner.current_health -= 50
 		if $StateMachine.current_state.name == "PlayerStateDownAttack":
-			velocity.y = -300
+			movement_stats.can_double_jump = true
+			velocity.y = -260
+		if $StateMachine.current_state.name == "PlayerStateStrongAttack":
+			area.owner.current_health -= 100
 
 func _on_after_attack_timeout():
 	can_attack = true

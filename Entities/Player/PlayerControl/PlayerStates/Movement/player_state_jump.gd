@@ -24,9 +24,12 @@ func on_input(event):
 	if Input.is_action_just_pressed("Dash") and player.movement_stats.can_dash == true:
 		state_machine.change_state_to(player.states.dash)
 	if Input.is_action_just_pressed("Jump") and player.movement_stats.can_double_jump == true:
-		player.velocity.y = player.movement_stats.jump_speed + 20
+		player.velocity.y = player.movement_stats.jump_speed + 50
 		player.movement_stats.can_double_jump = false
 		state_machine.change_state_to(player.states.jump)
+	if Input.is_action_just_pressed("Parry") and $"../../HUD".parry_charges.value >= 25:
+		$"../../HUD".parry_charges.value -= 25
+		state_machine.change_state_to(player.states.parry)
 	if player.can_attack == true:
 		if Input.is_action_pressed("Up") and Input.is_action_just_pressed("Attack"):
 			state_machine.change_state_to(player.states.up_attack)
