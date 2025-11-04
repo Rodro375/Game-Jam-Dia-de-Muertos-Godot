@@ -14,7 +14,6 @@ func _state_default_start():
 	_state_start()
 
 func _state_start():
-	prints("StateMachine", controlled_node.name, "start state", current_state.name)
 	
 	current_state.controlled_node = controlled_node
 	current_state.state_machine = self

@@ -1,10 +1,18 @@
-[gd_scene load_steps=11 format=3 uid="uid://bvt7spjg8ldk6"]
+[gd_scene load_steps=15 format=3 uid="uid://bvt7spjg8ldk6"]
 
 [ext_resource type="Script" uid="uid://c83c3gytcdst8" path="res://Entities/Enemies/Condor/condor.gd" id="1_pb5a5"]
 [ext_resource type="Texture2D" uid="uid://dktmjoip4b1f3" path="res://Entities/Enemies/Condor/Arte/condor.png" id="1_t2na2"]
+[ext_resource type="PackedScene" uid="uid://dc85a6iog0scl" path="res://Entities/Enemies/Condor/Projectile/projectile.tscn" id="2_0yi2h"]
 [ext_resource type="PackedScene" uid="uid://boue2bx8dcf63" path="res://Common/StateMachine/state_machine.tscn" id="2_3a26m"]
 [ext_resource type="Script" uid="uid://2fr75wpnq07v" path="res://Entities/Enemies/Condor/LlamaStates/Actions/condor_state_attack.gd" id="3_sowc6"]
+[ext_resource type="PackedScene" uid="uid://crqecpo45q3hg" path="res://Common/EnemyHealthBar/enemy_health_bar.tscn" id="3_x8kf0"]
 [ext_resource type="Script" uid="uid://bq7tphkh7o28u" path="res://Entities/Enemies/Condor/LlamaStates/Movement/condor_state_fly.gd" id="4_pb5a5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wqtdt"]
+size = Vector2(36, 26)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x8kf0"]
+size = Vector2(32, 22)
 
 [sub_resource type="Animation" id="Animation_pb5a5"]
 length = 0.001
@@ -63,15 +71,33 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0yi2h"]
-size = Vector2(38, 26)
+size = Vector2(28, 16)
 
 [node name="Condor" type="CharacterBody2D"]
 script = ExtResource("1_pb5a5")
+projectile_scene = ExtResource("2_0yi2h")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(-53, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="." groups=["enemies"]]
 texture = ExtResource("1_t2na2")
 hframes = 3
 frame = 1
+
+[node name="Attack" type="Area2D" parent="Sprite2D" groups=["enemy_attack"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/Attack"]
+shape = SubResource("RectangleShape2D_wqtdt")
+debug_color = Color(0.35867053, 0.61812955, 1.92523e-07, 0.41960785)
+
+[node name="HurtBox" type="Area2D" parent="Sprite2D" groups=["enemy_hurtbox"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/HurtBox"]
+shape = SubResource("RectangleShape2D_x8kf0")
+
+[node name="FirePoint" type="Marker2D" parent="Sprite2D"]
+position = Vector2(-21, 8)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -79,7 +105,12 @@ libraries = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("RectangleShape2D_0yi2h")
+disabled = true
+
+[node name="EnemyHealthBar" parent="." instance=ExtResource("3_x8kf0")]
+position = Vector2(-24, -28)
 
 [node name="StateMachine" parent="." node_paths=PackedStringArray("default_state") instance=ExtResource("2_3a26m")]
 default_state = NodePath("CondorStateFly")
@@ -89,3 +120,8 @@ script = ExtResource("3_sowc6")
 
 [node name="CondorStateFly" type="Node" parent="StateMachine"]
 script = ExtResource("4_pb5a5")
+
+[node name="ProyectileTimeout" type="Timer" parent="."]
+wait_time = 1.5
+
+[connection signal="timeout" from="ProyectileTimeout" to="." method="_on_proyectile_timeout_timeout"]

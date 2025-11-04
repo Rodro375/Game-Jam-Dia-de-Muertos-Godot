@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://dc85a6iog0scl"]
+
+[ext_resource type="Script" uid="uid://cg5fx5jy3u1nu" path="res://Entities/Enemies/Condor/Projectile/projectile.gd" id="1_5xc3r"]
+[ext_resource type="Texture2D" uid="uid://eycugjcjspuf" path="res://Entities/Enemies/Condor/Projectile/Art/enemigos-hunder.png" id="2_8lqby"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gabvn"]
+radius = 8.062258
+
+[node name="Projectile" type="Area2D" groups=["enemy_attack", "projectile"]]
+script = ExtResource("1_5xc3r")
+speed = 200.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.16078432, 0.019607844, 0.03529412, 1)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("2_8lqby")
+offset = Vector2(-6.85, 0)
+hframes = 4
+frame = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_gabvn")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

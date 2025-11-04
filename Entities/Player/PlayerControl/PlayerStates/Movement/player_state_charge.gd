@@ -8,7 +8,7 @@ func end():
 	$"../../Audio/Charge".stop()
 
 func on_physics_process(delta):
-	pass
+	$"../../HUD".parry_charges.value += 30 * delta
 	
 func on_input(event):
 	if Input.is_action_just_released("Charge"):

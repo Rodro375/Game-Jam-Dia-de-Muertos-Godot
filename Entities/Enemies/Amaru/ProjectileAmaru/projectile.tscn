@@ -1,0 +1,80 @@
+[gd_scene load_steps=11 format=3 uid="uid://c31cchbhdpr1h"]
+
+[ext_resource type="Script" uid="uid://b5suplfdsxno8" path="res://Entities/Enemies/Amaru/ProjectileAmaru/projectile.gd" id="1_1c01b"]
+[ext_resource type="Texture2D" uid="uid://b3l1p1wo0wsej" path="res://Entities/Enemies/Amaru/ProjectileAmaru/Art/boss-Tag-Sheet-export.png" id="2_4yxq6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_acbn3"]
+atlas = ExtResource("2_4yxq6")
+region = Rect2(0, 0, 160, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_amd2h"]
+atlas = ExtResource("2_4yxq6")
+region = Rect2(160, 0, 160, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y1q1j"]
+atlas = ExtResource("2_4yxq6")
+region = Rect2(320, 0, 160, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rmfci"]
+atlas = ExtResource("2_4yxq6")
+region = Rect2(480, 0, 160, 160)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qy1em"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_acbn3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_amd2h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y1q1j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rmfci")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gabvn"]
+radius = 8.062258
+
+[sub_resource type="Gradient" id="Gradient_sblr0"]
+offsets = PackedFloat32Array(0.253247, 0.688312, 0.805195)
+colors = PackedColorArray(1, 1, 1, 1, 0.737193, 0.737193, 0.737193, 0, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_4yxq6"]
+gradient = SubResource("Gradient_sblr0")
+width = 640
+height = 640
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="Projectile" type="Area2D" groups=["enemy_attack", "projectile"]]
+script = ExtResource("1_1c01b")
+speed = 200.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(-1, 1)
+sprite_frames = SubResource("SpriteFrames_qy1em")
+animation = &"new_animation"
+frame_progress = 0.8661886
+offset = Vector2(20.335, 20.045)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_gabvn")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+scale = Vector2(0.65625, 0.6562498)
+color = Color(0.412153, 0.412152, 0.412153, 1)
+energy = 3.76
+blend_mode = 2
+range_z_max = -1
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_4yxq6")
+texture_scale = 0.1
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

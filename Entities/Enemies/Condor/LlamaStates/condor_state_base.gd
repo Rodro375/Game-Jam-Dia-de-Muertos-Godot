@@ -10,8 +10,5 @@ var condor:Condor:
 
 var input_direction = Vector2.ZERO
 
-func on_physics_process(delta):
-	print("coito")
-
 func handle_gravity(delta):
 	condor.velocity.y += gravity * delta

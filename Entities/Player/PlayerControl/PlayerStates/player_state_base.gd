@@ -8,6 +8,7 @@ var player:Player:
 
 var input_direction = Vector2.ZERO
 
+var attack_interrupted:bool
 
 func input_direction_active():
 	input_direction.x = Input.get_axis("Left","Right")
@@ -28,4 +29,3 @@ func is_on_wall_raycast():
 func choose_random_audio(parent:Node2D):
 	var audio:AudioStreamPlayer2D = parent.get_children().pick_random()
 	audio.play()
-	

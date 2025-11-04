@@ -1,12 +1,11 @@
 extends PlayerStateGravityBase
 
 func start():
+	player.play_animation(player.animations.idle)
 	player.movement_stats.can_dash = true
 	player.movement_stats.can_double_jump = true
-	print("otro gato")
 
 func on_physics_process(delta):
-	player.play_animation(player.animations.idle)
 	player.velocity.x = 0
 	
 	input_direction_active()
@@ -28,10 +27,12 @@ func on_input(event):
 		print("nose")
 	if Input.is_action_just_pressed("Charge"):
 		state_machine.change_state_to(player.states.charge)
-	if Input.is_action_just_pressed("Parry"):
-		state_machine.change_state_to(player.states.parry)
-	if Input.is_action_just_pressed("Strong Attack"):
+	if Input.is_action_just_pressed("Strong Attack") and $"../../HUD".parry_charges.value >= 75:
+		$"../../HUD".parry_charges.value -= 75
 		state_machine.change_state_to(player.states.strong_attack)
+	if Input.is_action_just_pressed("Parry") and $"../../HUD".parry_charges.value >= 25:
+		$"../../HUD".parry_charges.value -= 25
+		state_machine.change_state_to(player.states.parry)
 	if player.can_attack == true:
 		if Input.is_action_pressed("Up") and Input.is_action_just_pressed("Attack"):
 			state_machine.change_state_to(player.states.up_attack)

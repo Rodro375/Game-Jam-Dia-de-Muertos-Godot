@@ -1,0 +1,356 @@
+[gd_scene load_steps=17 format=3 uid="uid://c30rotof5x2ur"]
+
+[ext_resource type="Script" uid="uid://dih0dxliyq25n" path="res://Entities/Enemies/Amaru/amaru.gd" id="1_ei6jf"]
+[ext_resource type="Texture2D" uid="uid://c2em3sr1a4sll" path="res://Entities/Enemies/Amaru/Arte/amaru-idle160x160.png" id="2_05tql"]
+[ext_resource type="PackedScene" uid="uid://c31cchbhdpr1h" path="res://Entities/Enemies/Amaru/ProjectileAmaru/projectile.tscn" id="2_n38qv"]
+[ext_resource type="PackedScene" uid="uid://boue2bx8dcf63" path="res://Common/StateMachine/state_machine.tscn" id="2_xwc8r"]
+[ext_resource type="Script" uid="uid://cla73pnnoc4in" path="res://Entities/Enemies/Amaru/LlamaStates/Movement/amaru_state_run.gd" id="3_05tql"]
+[ext_resource type="Texture2D" uid="uid://crtp3abblveb8" path="res://Entities/Enemies/Amaru/Arte/amaru-Attack160x160.png" id="3_n38qv"]
+[ext_resource type="Script" uid="uid://dao1ls16rju2j" path="res://Entities/Enemies/Amaru/LlamaStates/Actions/amaru_state_attack.gd" id="4_n38qv"]
+[ext_resource type="PackedScene" uid="uid://crqecpo45q3hg" path="res://Common/EnemyHealthBar/enemy_health_bar.tscn" id="5_l0uuw"]
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_3ip0k"]
+points = PackedVector2Array(-33, -77, -41, 62, 27, 83, 40, -10, 26, -81)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_auqeh"]
+size = Vector2(150.75, 139.5625)
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_sjkn7"]
+points = PackedVector2Array(9, 119, -24, 89, -23, 18, 13, -28, 72, -28, 60, 98)
+
+[sub_resource type="Animation" id="Animation_d1jpu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D/Attack:monitoring")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D/Attack:monitorable")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_05tql")]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D:hframes")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Sprite2D:vframes")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Sprite2D/Attack/CollisionShape2D:disabled")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_3ip0k"]
+resource_name = "attack"
+length = 1.3
+step = 0.04
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D/Attack:monitoring")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.96, 1.28),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D/Attack:monitorable")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.96, 1.28),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:vframes")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.09, 0.18, 0.27, 0.36, 0.45000002, 0.54, 0.63, 0.72, 0.81000006, 0.84, 0.92, 1.2709092),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 6]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Sprite2D:texture")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_n38qv")]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Sprite2D:offset")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-32.965, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Sprite2D/Attack/CollisionShape2D:disabled")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0.96, 1.28),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_lphbd"]
+resource_name = "run"
+length = 0.95
+loop_mode = 1
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_05tql")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45000002, 0.6, 0.75, 0.90000004),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:vframes")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D:offset")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_m4ixc"]
+_data = {
+&"RESET": SubResource("Animation_d1jpu"),
+&"attack": SubResource("Animation_3ip0k"),
+&"run": SubResource("Animation_lphbd")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_my342"]
+size = Vector2(18, 28)
+
+[node name="Amaru" type="CharacterBody2D" groups=["enemies"]]
+script = ExtResource("1_ei6jf")
+projectile_scene = ExtResource("2_n38qv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_05tql")
+offset = Vector2(-32.965, 0)
+hframes = 3
+vframes = 3
+
+[node name="HurtBox" type="Area2D" parent="Sprite2D" groups=["enemy_hurtbox"]]
+
+[node name="CollisionPolygon2D" type="CollisionShape2D" parent="Sprite2D/HurtBox"]
+shape = SubResource("ConvexPolygonShape2D_3ip0k")
+
+[node name="DetectionArea" type="Area2D" parent="Sprite2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/DetectionArea"]
+position = Vector2(-26.625, -4.21875)
+shape = SubResource("RectangleShape2D_auqeh")
+debug_color = Color(1, 1, 1, 0.41960785)
+
+[node name="Attack" type="Area2D" parent="Sprite2D" groups=["enemy_attack"]]
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/Attack"]
+position = Vector2(-89, -49)
+shape = SubResource("ConvexPolygonShape2D_sjkn7")
+disabled = true
+
+[node name="FirePoint" type="Marker2D" parent="Sprite2D"]
+position = Vector2(-12, -38)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_m4ixc")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 10)
+shape = SubResource("RectangleShape2D_my342")
+disabled = true
+
+[node name="StateMachine" parent="." node_paths=PackedStringArray("default_state") instance=ExtResource("2_xwc8r")]
+default_state = NodePath("AmaruStateRun")
+
+[node name="AmaruStateRun" type="Node" parent="StateMachine"]
+script = ExtResource("3_05tql")
+
+[node name="AmaruStateAttack" type="Node" parent="StateMachine"]
+script = ExtResource("4_n38qv")
+
+[node name="Timers" type="Node" parent="."]
+
+[node name="AfterAttack" type="Timer" parent="Timers"]
+wait_time = 5.0
+
+[node name="EnemyHealthBar" parent="." instance=ExtResource("5_l0uuw")]
+position = Vector2(-149, -91)
+scale = Vector2(3.18, 3.019)
+
+[node name="ProjectileTimeout" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[connection signal="area_entered" from="Sprite2D/HurtBox" to="." method="_on_hurt_box_area_entered"]
+[connection signal="area_entered" from="Sprite2D/DetectionArea" to="." method="_on_detection_area_area_entered"]
+[connection signal="area_entered" from="Sprite2D/DetectionArea" to="StateMachine/AmaruStateRun" method="_on_detection_area_area_entered"]
+[connection signal="area_exited" from="Sprite2D/DetectionArea" to="." method="_on_detection_area_area_exited"]
+[connection signal="timeout" from="Timers/AfterAttack" to="." method="_on_after_attack_timeout"]
+[connection signal="timeout" from="ProjectileTimeout" to="." method="_on_projectile_timeout_timeout"]

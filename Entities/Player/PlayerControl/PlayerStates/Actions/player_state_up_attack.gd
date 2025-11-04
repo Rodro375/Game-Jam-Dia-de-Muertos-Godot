@@ -1,9 +1,22 @@
 extends PlayerStateGravityBase
 
 func start():
+	attack_interrupted = false
 	player.play_animation(player.animations.up_attack)
 	player.can_attack = false
 	$"../../Timers/AfterAttack".start()
+	get_tree().create_timer(0.05).timeout
+	if attack_interrupted == true:
+		return
+	$"../../Sprite/Attack/UpSlashCollision2".disabled = false
+	$"../../Sprite/Attack".monitorable = true
+	$"../../Sprite/Attack".monitoring = true
+
+func end():
+	attack_interrupted = true
+	$"../../Sprite/Attack/UpSlashCollision2".disabled = true
+	$"../../Sprite/Attack".monitorable = false
+	$"../../Sprite/Attack".monitoring = false
 	
 func on_physics_process(delta):
 	input_direction_active()
