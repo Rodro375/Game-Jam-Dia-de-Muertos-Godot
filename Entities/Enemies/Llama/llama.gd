@@ -1,4 +1,4 @@
-class_name Llama
+class_name Llama 
 extends CharacterBody2D
 
 signal health_changed
@@ -32,7 +32,6 @@ func play_animation(animation_name:String):
 func _process(delta):
 	set_facing_direction(sign(distance))
 	to_move()
-	print(current_health)
 	if current_health <= 0:
 		emit_signal("enemy_died")
 		queue_free()

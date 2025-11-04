@@ -37,8 +37,6 @@ func play_animation(animation_name:String):
 func _process(delta):
 	var player_position:Vector2 = get_tree().get_first_node_in_group("player").position
 	distance.x = (player_position.x - position.x)
-	set_facing_direction(sign(distance.x))
-	print(distance)
 	if current_health <= 0:
 		emit_signal("enemy_died")
 		queue_free()

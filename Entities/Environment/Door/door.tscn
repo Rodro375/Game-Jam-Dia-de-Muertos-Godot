@@ -62,8 +62,7 @@ shape = SubResource("RectangleShape2D_xvs47")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 modulate = Color(0.5370987, 0.5370987, 0.5370987, 1)
 sprite_frames = SubResource("SpriteFrames_cfowf")
-autoplay = "default"
-frame_progress = 0.9311521
+frame = 3
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 shadow_enabled = true

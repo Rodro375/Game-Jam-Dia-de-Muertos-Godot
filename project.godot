@@ -10,14 +10,15 @@ config_version=5
 
 [application]
 
-config/name="Game Jam Dia de Muertos"
-run/main_scene="uid://c0picire4m3rl"
+config/name="Cenisas eternas"
+run/main_scene="uid://cs212bodwamui"
 config/features=PackedStringArray("4.5", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="uid://bcmj37n025fd6"
 
 [autoload]
 
 PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
+Global="*res://Stages/Global.gd"
 
 [display]
 

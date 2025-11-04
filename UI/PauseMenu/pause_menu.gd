@@ -25,7 +25,14 @@ func _on_resume_pressed():
 
 func _on_restart_pressed():
 	resume()
-	get_tree().reload_current_scene()
+	if Global.player_current_strenght >= 5:
+		Global.player_health = 100
+		Global.player_current_strenght = 1
+		get_tree().change_scene_to_file("res://Stages/Pantheons/Panth1/Pant1.tscn")
+	else:
+		Global.player_health = 100
+		Global.player_current_strenght += 1
+		get_tree().reload_current_scene()
 
 func _on_quit_pressed():
 	get_tree().quit()

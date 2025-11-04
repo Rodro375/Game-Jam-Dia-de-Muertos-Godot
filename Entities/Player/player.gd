@@ -10,7 +10,7 @@ signal health_changed
 @onready var animation_player:AnimationPlayer = $AnimationPlayer
 
 @export var max_health:int = 100
-@onready var current_health:int = max_health
+@onready var current_health:int = Global.player_health
 
 var states:PlayerStateNames = PlayerStateNames.new()
 var animations:PlayerAnimations = PlayerAnimations.new()
@@ -19,6 +19,7 @@ const SPEED = 50.0
 var invul_after_damage:bool = false
 var can_attack:bool = true
 var axis:Vector2
+var player_strenght:float
 
 func set_facing_direction(x:float):
 	if abs(x) > 0:
@@ -27,10 +28,16 @@ func set_facing_direction(x:float):
 func is_facing_right() -> bool:
 	return sprite.scale.x > 0
 
+func _ready():
+	player_strenght = Global.player_current_strenght/2
+
 func _process(delta):
+	Global.player_health = current_health
 	set_facing_direction(velocity.x)
 	if $StateMachine.current_state.name == "PlayerStateStrongAttack":
 		$"../Camera2D".screen_shake(11,0.3)
+	print(Global.level_index)
+	print(Global.player_current_strenght)
 
 func play_animation(animation_name:String):
 	animation_player.play(animation_name)
@@ -42,7 +49,7 @@ func _on_hurt_box_area_entered(area:Node2D):
 			animation_player.play("parry")
 			$Audio/Damage.play()
 			if !area.is_in_group("projectile"):
-				area.owner.current_health -= 100
+				area.owner.current_health -= 100 * player_strenght
 			else:
 				area.queue_free()
 		elif area.is_in_group("projectile"):
@@ -63,12 +70,14 @@ func _on_attack_area_entered(area:Node2D):
 	if area.is_in_group("enemy_hurtbox"):
 		$"../Camera2D".screen_shake(7.5,0.15)
 		$Audio/Damage.play()
-		area.owner.current_health -= 50
 		if $StateMachine.current_state.name == "PlayerStateDownAttack":
 			movement_stats.can_double_jump = true
+			area.owner.current_health -= 50 * player_strenght
 			velocity.y = -260
-		if $StateMachine.current_state.name == "PlayerStateStrongAttack":
-			area.owner.current_health -= 100
+		elif $StateMachine.current_state.name == "PlayerStateStrongAttack":
+			area.owner.current_health -= 150 * player_strenght
+		else:
+			area.owner.current_health -= 50 * player_strenght
 
 func _on_after_attack_timeout():
 	can_attack = true

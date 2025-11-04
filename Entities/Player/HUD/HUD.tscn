@@ -35,7 +35,6 @@ texture_progress = ExtResource("3_bqhug")
 metadata/_edit_use_anchors_ = true
 
 [node name="ParryCharges" type="TextureProgressBar" parent="."]
-anchors_preset = -1
 offset_left = 49.0
 offset_top = 34.0
 offset_right = 93.0
@@ -50,7 +49,7 @@ texture_progress = ExtResource("6_5si6g")
 metadata/_edit_use_anchors_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(46, 48)
+position = Vector2(46, 48.000004)
 scale = Vector2(1.1875001, 1.1875001)
 texture = ExtResource("5_bqhug")
 hframes = 5
